@@ -28,10 +28,34 @@ int main()
     sf::Texture chartTexture;
     sf::Sprite chartSprite;
  
-    if (!chartTexture.loadFromFile("assets/chart-blank.png")) {
-        cout << "can;t print" << endl;
-    }
+    chartTexture.loadFromFile("assets/chart-blank.png");
+    T_StockOption_Coin.loadFromFile("assets/coin.png");
+    T_StockOption_Tech1.loadFromFile("assets/apple.png");
+    T_StockOption_Tech2.loadFromFile("assets/google.png");
+    T_StockOption_Insurance.loadFromFile("assets/insurance.png");
+    T_StockOption_War.loadFromFile("assets/tank.png");
+    T_StockOption_Gold.loadFromFile("assets/gold.png");
+    T_StockOption_Dollar.loadFromFile("assets/dollar.png");
+    T_StockOption_Oil.loadFromFile("assets/oil.png");
+
     chartSprite.setTexture(chartTexture);
+    S_StockOption_Coin.setTexture(T_StockOption_Coin);
+    S_StockOption_Tech1.setTexture(T_StockOption_Tech1);
+    S_StockOption_Tech2.setTexture(T_StockOption_Tech2);
+    S_StockOption_Insurance.setTexture(T_StockOption_Insurance);
+    S_StockOption_War.setTexture(T_StockOption_War);
+    S_StockOption_Gold.setTexture(T_StockOption_Gold);
+    S_StockOption_Dollar.setTexture(T_StockOption_Dollar);
+    S_StockOption_Oil.setTexture(T_StockOption_Oil);
+
+    S_StockOption_Coin.setPosition(500, 100);
+    S_StockOption_Tech1.setTexture(T_StockOption_Tech1);
+    S_StockOption_Tech2.setTexture(T_StockOption_Tech2);
+    S_StockOption_Insurance.setTexture(T_StockOption_Insurance);
+    S_StockOption_War.setTexture(T_StockOption_War);
+    S_StockOption_Gold.setTexture(T_StockOption_Gold);
+    S_StockOption_Dollar.setTexture(T_StockOption_Dollar);
+    S_StockOption_Oil.setTexture(T_StockOption_Oil);
 
 
     while (window.isOpen()) {
@@ -56,6 +80,7 @@ int main()
         window.clear(sf::Color(217, 234, 253, 0));
 
         window.draw(chartSprite);
+        window.draw(S_StockOption_Coin);
         
         
         
