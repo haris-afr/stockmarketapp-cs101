@@ -15,6 +15,8 @@ int main()
     sf::Texture T_StockOption_Gold;
     sf::Texture T_StockOption_Dollar;
     sf::Texture T_StockOption_Oil;
+    sf::Texture T_EyeClosed;
+    sf::Texture T_EyeOpen;
 
     sf::Sprite S_StockOption_Coin;
     sf::Sprite S_StockOption_Tech1;
@@ -37,6 +39,9 @@ int main()
     T_StockOption_Gold.loadFromFile("assets/gold.png");
     T_StockOption_Dollar.loadFromFile("assets/dollar.png");
     T_StockOption_Oil.loadFromFile("assets/oil.png");
+    T_EyeClosed.loadFromFile("assets/eye-close.png");
+    T_EyeOpen.loadFromFile("assets/eye-open.png");
+
 
     chartSprite.setTexture(chartTexture);
     S_StockOption_Coin.setTexture(T_StockOption_Coin);
@@ -56,6 +61,10 @@ int main()
     S_StockOption_Gold.setPosition(1225, 300);
     S_StockOption_Dollar.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
+
+    
+    
+    bool visibilityArray[8] = {0};
 
 
     while (window.isOpen()) {
