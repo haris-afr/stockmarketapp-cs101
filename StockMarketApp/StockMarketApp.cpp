@@ -104,6 +104,8 @@ int main()
     visEye visEyeArray[8];
     for (int i = 0; i < 8; i++) {
         visEyeArray[i].initialize();
+        //TODO: THIS
+        visEyeArray[i].S_CurrentSprite.setPosition((800 + 400 * (2 % (i + 1))), (100 * ((i+1) / 2)));
     }
 
     bool visibilityArray[8] = {0};
@@ -146,11 +148,6 @@ int main()
         }
         
         window.display();
-
-
     }
-
     return 0;
-
-   
 }
