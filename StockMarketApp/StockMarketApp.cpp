@@ -114,6 +114,8 @@ int main()
 
     while (window.isOpen()) {
 
+        bool lockClick = false;
+
         sf::Event event;
         //this is used to create the event loop
         while (window.pollEvent(event))
@@ -126,11 +128,29 @@ int main()
                 window.close();
                 break;
 
+            case sf::Event::MouseButtonPressed:
+                for (int i = 0; i < 8; i++) {
+                    bool xCheck = sf::Mouse::getPosition(window).x >= visEyeArray[i].xPos && sf::Mouse::getPosition(window).x <= visEyeArray[i].xPos + 50;
+                    bool yCheck = sf::Mouse::getPosition(window).y >= visEyeArray[i].yPos && sf::Mouse::getPosition(window).y <= visEyeArray[i].yPos + 50;
+                    if (xCheck && yCheck && !lockClick) {
+                        visEyeArray[i].flip();
+                        lockClick = true;
+                        break;
+                    }
+                }
+                break;
+
+            case sf::Event::MouseButtonReleased:
+                lockClick = false;
+                break;
+
 
             default:
                 break;
             }
         }
+
+
         window.clear(sf::Color(217, 234, 253, 0));
 
         window.draw(chartSprite);
