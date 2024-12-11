@@ -48,6 +48,9 @@ int main()
     //creates a window and titles it 
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Stock Market App", sf::Style::Close | sf::Style::Titlebar);
     
+    sf::Font font;
+    font.loadFromFile("assets/Swansea.ttf");
+
     sf::Texture T_StockOption_Coin;
     sf::Texture T_StockOption_Tech1;
     sf::Texture T_StockOption_Tech2;
@@ -102,7 +105,28 @@ int main()
     S_StockOption_Oil.setPosition(1225, 400);
     
     
+    
+    sf::Text textArray[8];
+    textArray[1].setString("Bytecoin");
+    textArray[0].setString("Apple");
+    textArray[3].setString("Google");
+    textArray[2].setString("United Health Insurance");
+    textArray[5].setString("Lockheed Martin");
+    textArray[4].setString("Gold");
+    textArray[7].setString("USD");
+    textArray[6].setString("Oil");
+
+    for (int i = 0; i < 8; i++) {
+        int xPos = (950 + 375 * ((i + 1) % 2));
+        int yPos = (105 * ((i + 2) / 2) + 25);
+        textArray[i].setFont(font);
+        textArray[i].setFillColor(sf::Color::Black);
+        textArray[i].setCharacterSize(24);
+        textArray[i].setPosition(xPos, yPos);
+    }
+
     visEye visEyeArray[8];
+
     for (int i = 0; i < 8; i++) {
         visEyeArray[i].initialize();
         int xPos = (800 + 375 * ((i + 1) % 2));
@@ -128,10 +152,12 @@ int main()
                 window.close();
                 break;
 
-            case sf::Event::MouseButtonPressed:
+            case sf::Event::MouseButtonPressed:{
+                int mouseXPos = sf::Mouse::getPosition(window).x;
+                int mouseYPos = sf::Mouse::getPosition(window).y;
                 for (int i = 0; i < 8; i++) {
-                    bool xCheck = sf::Mouse::getPosition(window).x >= visEyeArray[i].xPos && sf::Mouse::getPosition(window).x <= visEyeArray[i].xPos + 50;
-                    bool yCheck = sf::Mouse::getPosition(window).y >= visEyeArray[i].yPos && sf::Mouse::getPosition(window).y <= visEyeArray[i].yPos + 50;
+                    bool xCheck = mouseXPos >= visEyeArray[i].xPos && mouseXPos <= visEyeArray[i].xPos + 50;
+                    bool yCheck = mouseYPos >= visEyeArray[i].yPos && mouseYPos <= visEyeArray[i].yPos + 50;
                     if (xCheck && yCheck && !lockClick) {
                         visEyeArray[i].flip();
                         lockClick = true;
@@ -139,6 +165,7 @@ int main()
                     }
                 }
                 break;
+            }
 
             case sf::Event::MouseButtonReleased:
                 lockClick = false;
@@ -166,6 +193,7 @@ int main()
         
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
+            window.draw(textArray[i]);
         }
         
         window.display();
