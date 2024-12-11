@@ -9,6 +9,7 @@ public:
     sf::Texture T_EyeOpen;
     bool CurrentTexture;
     sf::Sprite S_CurrentSprite;
+    int xPos, yPos;
 
     void initialize() {
         T_EyeClosed.loadFromFile("assets/eye-close.png");
@@ -104,12 +105,12 @@ int main()
     visEye visEyeArray[8];
     for (int i = 0; i < 8; i++) {
         visEyeArray[i].initialize();
-        //TODO: THIS
-        visEyeArray[i].S_CurrentSprite.setPosition((800 + 400 * (2 % (i + 1))), (100 * ((i+1) / 2)));
+        int xPos = (800 + 375 * ((i + 1) % 2));
+        int yPos = (100 * ((i + 2) / 2) + 25);
+        visEyeArray[i].xPos = xPos;
+        visEyeArray[i].yPos = yPos;
+        visEyeArray[i].S_CurrentSprite.setPosition(xPos, yPos);
     }
-
-    bool visibilityArray[8] = {0};
-
 
     while (window.isOpen()) {
 
