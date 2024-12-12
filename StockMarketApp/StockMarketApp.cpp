@@ -63,6 +63,23 @@ public:
     }
 };
 
+class stockLine {
+public:
+    int xPos, yPos;
+    int setStock;
+    
+    stockLine() {
+        sf::VertexArray lines(sf::LineStrip, 7);
+    }
+
+    void initialize(int stock, int givenXPos, int givenYPos) {
+        setStock = stock;
+        xPos = givenXPos;
+        yPos = givenYPos;
+    }
+
+};
+
 int main()
 {
     //creates a window and titles it 
@@ -80,7 +97,7 @@ int main()
     sf::Texture T_StockOption_Insurance;
     sf::Texture T_StockOption_War;
     sf::Texture T_StockOption_Gold;
-    sf::Texture T_StockOption_Dollar;
+    sf::Texture T_StockOption_Nvid;
     sf::Texture T_StockOption_Oil;
 
 
@@ -90,7 +107,7 @@ int main()
     sf::Sprite S_StockOption_Insurance;
     sf::Sprite S_StockOption_War;
     sf::Sprite S_StockOption_Gold;
-    sf::Sprite S_StockOption_Dollar;
+    sf::Sprite S_StockOption_Nvid;
     sf::Sprite S_StockOption_Oil;
     
 
@@ -106,7 +123,7 @@ int main()
     T_StockOption_Insurance.loadFromFile("assets/insurance.png");
     T_StockOption_War.loadFromFile("assets/tank.png");
     T_StockOption_Gold.loadFromFile("assets/gold.png");
-    T_StockOption_Dollar.loadFromFile("assets/dollar.png");
+    T_StockOption_Nvid.loadFromFile("assets/nvidia.png");
     T_StockOption_Oil.loadFromFile("assets/oil.png");
 
     S_StockOption_Coin.setTexture(T_StockOption_Coin);
@@ -115,7 +132,7 @@ int main()
     S_StockOption_Insurance.setTexture(T_StockOption_Insurance);
     S_StockOption_War.setTexture(T_StockOption_War);
     S_StockOption_Gold.setTexture(T_StockOption_Gold);
-    S_StockOption_Dollar.setTexture(T_StockOption_Dollar);
+    S_StockOption_Nvid.setTexture(T_StockOption_Nvid);
     S_StockOption_Oil.setTexture(T_StockOption_Oil);
 
     S_StockOption_Coin.setPosition(850, 100);
@@ -124,7 +141,7 @@ int main()
     S_StockOption_Insurance.setPosition(1225, 200);
     S_StockOption_War.setPosition(850, 300);
     S_StockOption_Gold.setPosition(1225, 300);
-    S_StockOption_Dollar.setPosition(850, 400);
+    S_StockOption_Nvid.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
     
     sf::Text moneyTitleText;
@@ -169,7 +186,7 @@ int main()
     iconTextArray[4].setString("Newmont Gold");
     iconTextArray[5].setString("Lockheed Martin");
     iconTextArray[6].setString("Shell Oil");
-    iconTextArray[7].setString("USD Bonds");
+    iconTextArray[7].setString("Nvidea");
 
     for (int i = 0; i < 8; i++) {
         int xPos = (950 + 375 * ((i + 1) % 2));
@@ -190,7 +207,6 @@ int main()
     }
 
     for (int i = 0; i < 8; i++) {
-        
         int xPos = (950 + 375 * ((i + 1) % 2));
         int yPos = (150 + (100 * ((i) / 2)));
         buySellArray[i].initialize(i, xPos, yPos);
@@ -258,7 +274,7 @@ int main()
         window.draw(S_StockOption_Insurance);
         window.draw(S_StockOption_War);
         window.draw(S_StockOption_Gold);
-        window.draw(S_StockOption_Dollar);
+        window.draw(S_StockOption_Nvid);
         window.draw(S_StockOption_Oil);
         
         for (int i = 0; i < 8; i++) {
