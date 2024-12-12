@@ -11,11 +11,14 @@ public:
     sf::Sprite S_CurrentSprite;
     int xPos, yPos;
 
-    void initialize() {
+    void initialize(int givenXPos, int givenYPos) {
         T_EyeClosed.loadFromFile("assets/eye-close.png");
         T_EyeOpen.loadFromFile("assets/eye-open.png");
         S_CurrentSprite.setTexture(T_EyeClosed);
         CurrentTexture = 0;
+        xPos = givenXPos;
+        yPos = givenYPos;
+        S_CurrentSprite.setPosition(xPos, yPos);
     }
 
     void setState(bool state) {
@@ -181,12 +184,9 @@ int main()
     buySell buySellArray[8];
 
     for (int i = 0; i < 8; i++) {
-        visEyeArray[i].initialize();
         int xPos = (800 + 375 * ((i + 1) % 2));
         int yPos = (100 * ((i + 2) / 2) + 25);
-        visEyeArray[i].xPos = xPos;
-        visEyeArray[i].yPos = yPos;
-        visEyeArray[i].S_CurrentSprite.setPosition(xPos, yPos);
+        visEyeArray[i].initialize(xPos, yPos);
     }
 
     for (int i = 0; i < 8; i++) {
