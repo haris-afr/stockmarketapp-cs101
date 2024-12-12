@@ -51,6 +51,9 @@ int main()
     sf::Font font;
     font.loadFromFile("assets/Swansea.ttf");
 
+    int cashMoney = 10000;
+    int stockMoney = 0;
+
     sf::Texture T_StockOption_Coin;
     sf::Texture T_StockOption_Tech1;
     sf::Texture T_StockOption_Tech2;
@@ -104,25 +107,57 @@ int main()
     S_StockOption_Dollar.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
     
+    sf::Text moneyTitleText;
+    sf::Text cashmoneyTitleText;
+    sf::Text stockmoneyTitleText;
+    sf::Text textCashMoney;
+    sf::Text textStockMoney;
+
+    moneyTitleText.setString("Total Assets");
+    moneyTitleText.setFont(font);
+    moneyTitleText.setFillColor(sf::Color::Black);
+    moneyTitleText.setCharacterSize(48);
+    moneyTitleText.setPosition(1000, 550);
+
+    cashmoneyTitleText.setString("Money in Hand");
+    cashmoneyTitleText.setFont(font);
+    cashmoneyTitleText.setFillColor(sf::Color::Black);
+    cashmoneyTitleText.setCharacterSize(32);
+    cashmoneyTitleText.setPosition(800, 650);
+
+    stockmoneyTitleText.setString("Money in Stocks");
+    stockmoneyTitleText.setFont(font);
+    stockmoneyTitleText.setFillColor(sf::Color::Black);
+    stockmoneyTitleText.setCharacterSize(32);
+    stockmoneyTitleText.setPosition(800, 700);
+
+    textCashMoney.setFont(font);
+    textCashMoney.setFillColor(sf::Color::Black);
+    textCashMoney.setCharacterSize(32);
+    textCashMoney.setPosition(1200, 650);
+
+    textStockMoney.setFont(font);
+    textStockMoney.setFillColor(sf::Color::Black);
+    textStockMoney.setCharacterSize(32);
+    textStockMoney.setPosition(1200, 700);
     
-    
-    sf::Text textArray[8];
-    textArray[1].setString("Bytecoin");
-    textArray[0].setString("Apple");
-    textArray[3].setString("Google");
-    textArray[2].setString("United Health Insurance");
-    textArray[5].setString("Lockheed Martin");
-    textArray[4].setString("Gold");
-    textArray[7].setString("USD");
-    textArray[6].setString("Oil");
+    sf::Text iconTextArray[8];
+    iconTextArray[0].setString("Seeb");
+    iconTextArray[1].setString("Bytecoin");
+    iconTextArray[2].setString("Health Insurance");
+    iconTextArray[3].setString("Goggle");
+    iconTextArray[4].setString("Gold");
+    iconTextArray[5].setString("Tanks'R'Us");
+    iconTextArray[6].setString("Sui Oil");
+    iconTextArray[7].setString("USD");
 
     for (int i = 0; i < 8; i++) {
         int xPos = (950 + 375 * ((i + 1) % 2));
         int yPos = (105 * ((i + 2) / 2) + 25);
-        textArray[i].setFont(font);
-        textArray[i].setFillColor(sf::Color::Black);
-        textArray[i].setCharacterSize(24);
-        textArray[i].setPosition(xPos, yPos);
+        iconTextArray[i].setFont(font);
+        iconTextArray[i].setFillColor(sf::Color::Black);
+        iconTextArray[i].setCharacterSize(24);
+        iconTextArray[i].setPosition(xPos, yPos);
     }
 
     visEye visEyeArray[8];
@@ -136,9 +171,16 @@ int main()
         visEyeArray[i].S_CurrentSprite.setPosition(xPos, yPos);
     }
 
+
     while (window.isOpen()) {
 
         bool lockClick = false;
+
+
+        string stringCashMoney = to_string(cashMoney);
+        string stringStockMoney = to_string(stockMoney);
+        textCashMoney.setString(to_string(cashMoney));
+        textStockMoney.setString(to_string(stockMoney));
 
         sf::Event event;
         //this is used to create the event loop
@@ -181,7 +223,11 @@ int main()
         window.clear(sf::Color(217, 234, 253, 0));
 
         window.draw(chartSprite);
-        
+        window.draw(moneyTitleText);
+        window.draw(cashmoneyTitleText);
+        window.draw(stockmoneyTitleText);
+        window.draw(textCashMoney);
+        window.draw(textStockMoney);
         window.draw(S_StockOption_Coin);
         window.draw(S_StockOption_Tech1);
         window.draw(S_StockOption_Tech2);
@@ -193,7 +239,7 @@ int main()
         
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
-            window.draw(textArray[i]);
+            window.draw(iconTextArray[i]);
         }
         
         window.display();
