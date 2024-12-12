@@ -42,6 +42,23 @@ public:
 
 };
 
+class buySell {
+public:
+    sf::Texture Texture;
+    sf::Sprite Sprite;
+    int xPos, yPos;
+    int setStock;
+
+    void initialize(int stock, int givenXPos, int givenYPos) {
+        Texture.loadFromFile("assets/buy-sell.png");
+        setStock = stock;
+        xPos = givenXPos;
+        yPos = givenYPos;
+        Sprite.setTexture(Texture);
+        Sprite.setPosition(xPos, yPos);
+
+    }
+};
 
 int main()
 {
@@ -142,14 +159,14 @@ int main()
     textStockMoney.setPosition(1200, 700);
     
     sf::Text iconTextArray[8];
-    iconTextArray[0].setString("Seeb");
-    iconTextArray[1].setString("Bytecoin");
-    iconTextArray[2].setString("Health Insurance");
-    iconTextArray[3].setString("Goggle");
-    iconTextArray[4].setString("Gold");
-    iconTextArray[5].setString("Tanks'R'Us");
-    iconTextArray[6].setString("Sui Oil");
-    iconTextArray[7].setString("USD");
+    iconTextArray[0].setString("Apple");
+    iconTextArray[1].setString("Binance");
+    iconTextArray[2].setString("UHC");
+    iconTextArray[3].setString("Google");
+    iconTextArray[4].setString("Newmont Gold");
+    iconTextArray[5].setString("Lockheed Martin");
+    iconTextArray[6].setString("Shell Oil");
+    iconTextArray[7].setString("USD Bonds");
 
     for (int i = 0; i < 8; i++) {
         int xPos = (950 + 375 * ((i + 1) % 2));
@@ -161,6 +178,7 @@ int main()
     }
 
     visEye visEyeArray[8];
+    buySell buySellArray[8];
 
     for (int i = 0; i < 8; i++) {
         visEyeArray[i].initialize();
@@ -171,11 +189,17 @@ int main()
         visEyeArray[i].S_CurrentSprite.setPosition(xPos, yPos);
     }
 
+    for (int i = 0; i < 8; i++) {
+        
+        int xPos = (950 + 375 * ((i + 1) % 2));
+        int yPos = (150 + (100 * ((i) / 2)));
+        buySellArray[i].initialize(i, xPos, yPos);
+    }
+
 
     while (window.isOpen()) {
 
         bool lockClick = false;
-
 
         string stringCashMoney = to_string(cashMoney);
         string stringStockMoney = to_string(stockMoney);
@@ -240,6 +264,7 @@ int main()
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
             window.draw(iconTextArray[i]);
+            window.draw(buySellArray[i].Sprite);
         }
         
         window.display();
