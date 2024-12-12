@@ -2,31 +2,22 @@
 using namespace std;
 
 
-float dash(int value, float fluctuation){
-    float x,y;
-    x=(fluctuation-value)*100;
-    if (fluctuation>0){
-        y=(value+x/100)/value;    
-    }
-     else if (fluctuation<0)
-        {
-            y=(value-x/100)/value;
-        }
-
-        return y;
+float dash(bool flag,float magnitude){
+    float y;
+    if(flag){
+    	return magnitude;
+	}
+	else if(!flag)
+        return 1/magnitude;
         
 
 
 }
 int main(){
-	//testing code
-	int a = dash(100,110);
-	if(a>1){
-		cout<<"value is positive";
-	}
-	else if(a<1){
-		cout<<"value is negative";
-	}
-    
+	
+	float a =100,b;
+	b=dash(0,2);
+	a=a*b;
+	cout<<a;
 }
 
