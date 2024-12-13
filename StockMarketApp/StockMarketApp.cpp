@@ -70,9 +70,9 @@ public:
     int setStock = 0;
     sf::VertexArray lines;
     int stocksArray[6];
-    sf::Color stockColor;
+    sf::Color stockColor = sf::Color(0, 0, 0, 0);
     
-    stockLine(int stock, int givenYPos) : lines(sf::TrianglesStrip, 12) {
+    stockLine(int stock = -1, int givenYPos = 0) : lines(sf::TrianglesStrip, 12) {
         setStock = stock;
         for (int i = 0; i < 12; i++) {
             lines[i].color = stockColor;
@@ -98,43 +98,48 @@ public:
     
     void updateColor(bool vis) {
         if (!vis) {
-            stockColor = sf::Color(0, 0, 0, 255);
+            stockColor = sf::Color(0, 0, 0, 0);
         }
         else {
             switch (setStock) {
             case 0:
-                stockColor = sf::Color(184, 115, 51, 1);
+                stockColor = sf::Color(184, 115, 51, 255);
                 break;
             case 1:
-                stockColor = sf::Color(128, 128, 128, 1);
+                stockColor = sf::Color(128, 128, 128, 255);
                 break;
             case 2:
-                stockColor = sf::Color(66, 133, 244, 1);
+                stockColor = sf::Color(66, 133, 244, 255);
                 break;
             case 3:
-                stockColor = sf::Color(66, 133, 244, 1);
+                stockColor = sf::Color(66, 133, 244, 255);
                 break;
             case 4:
-                stockColor = sf::Color(35, 35, 142, 1);
+                stockColor = sf::Color(35, 35, 142, 255);
                 break;
             case 5:
-                stockColor = sf::Color(255, 215, 0, 1);
+                stockColor = sf::Color(255, 215, 0, 255);
                 break;
             case 6:
-                stockColor = sf::Color(118, 185, 0, 1);
+                stockColor = sf::Color(118, 185, 0, 255);
                 break;
             case 7:
-                stockColor = sf::Color(0, 4, 13, 1);
+                stockColor = sf::Color(0, 4, 13, 255);
                 break;
             default:
                 cout << "something has gone wrong in colors" << endl;
             }
+
+            for (int i = 0; i < 12; i++) {
+                lines[i].color = stockColor;
+             }
         }
     }
 };
 
 int main()
 {
+    srand(time(0));
     //creates a window and titles it 
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Stock Market App", sf::Style::Close | sf::Style::Titlebar);
     
@@ -251,9 +256,16 @@ int main()
         iconTextArray[i].setCharacterSize(24);
         iconTextArray[i].setPosition(xPos, yPos);
     }
-
+   
+    stockLine stocksArray[8];
     visEye visEyeArray[8];
     buySell buySellArray[8];
+
+
+    for (int i = 0; i < 8; i++) {
+        stocksArray[i] = stockLine(i, rand() % 600);
+        stocksArray[i].updateColor(1);
+    }
 
     for (int i = 0; i < 8; i++) {
         int xPos = (800 + 375 * ((i + 1) % 2));
@@ -337,6 +349,7 @@ int main()
             window.draw(visEyeArray[i].S_CurrentSprite);
             window.draw(iconTextArray[i]);
             window.draw(buySellArray[i].Sprite);
+            window.draw(stocksArray[i].lines);
         }
         
 
