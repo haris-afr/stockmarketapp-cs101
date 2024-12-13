@@ -69,23 +69,68 @@ public:
     int yPos = 0;
     int setStock = 0;
     sf::VertexArray lines;
+    int stocksArray[6];
+    sf::Color stockColor;
     
     stockLine(int stock, int givenYPos) : lines(sf::TrianglesStrip, 12) {
         setStock = stock;
         for (int i = 0; i < 12; i++) {
-            lines[i].color = sf::Color::Red;
-
-            if ((i + 1) % 2 == 0) {
-                lines[i].position.y = givenYPos;
-            }
-            else {
-                lines[i].position.y = givenYPos + 8;
-            }
-
+            lines[i].color = stockColor;
             lines[i].position.x = 35 + ( (i/2) * 145);
         }
+        shiftOldStocks(givenYPos);
+        displayStocks();
+    }
+
+    void displayStocks() {
+        for (int i = 0; i < 6; i++) {
+            lines[2 * i].position.y = stocksArray[i];
+            lines[2 * i + 1].position.y = stocksArray[i] + 8;
+        }
+    }
+
+    void shiftOldStocks(int latestYPos) {
+        for (int i = 0; i < 5; i++) {
+            stocksArray[i] = stocksArray[i + 1];
+        }
+        stocksArray[5] = latestYPos;
     }
     
+    void updateColor(bool vis) {
+        if (!vis) {
+            stockColor = sf::Color(0, 0, 0, 255);
+        }
+        else {
+            switch (setStock) {
+            case 0:
+                stockColor = sf::Color(184, 115, 51, 1);
+                break;
+            case 1:
+                stockColor = sf::Color(128, 128, 128, 1);
+                break;
+            case 2:
+                stockColor = sf::Color(66, 133, 244, 1);
+                break;
+            case 3:
+                stockColor = sf::Color(66, 133, 244, 1);
+                break;
+            case 4:
+                stockColor = sf::Color(35, 35, 142, 1);
+                break;
+            case 5:
+                stockColor = sf::Color(255, 215, 0, 1);
+                break;
+            case 6:
+                stockColor = sf::Color(118, 185, 0, 1);
+                break;
+            case 7:
+                stockColor = sf::Color(0, 4, 13, 1);
+                break;
+            default:
+                cout << "something has gone wrong in colors" << endl;
+            }
+        }
+    }
 };
 
 int main()
