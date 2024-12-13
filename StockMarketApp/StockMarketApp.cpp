@@ -78,6 +78,10 @@ public:
             lines[i].color = stockColor;
             lines[i].position.x = 35 + ( (i/2) * 145);
         }
+
+        for (int i = 0; i < 6; i++) {
+            stocksArray[i] = 0;
+        }
         shiftOldStocks(givenYPos);
         displayStocks();
     }
@@ -98,33 +102,33 @@ public:
     
     void updateColor(bool vis) {
         if (!vis) {
-            stockColor = sf::Color(0, 0, 0, 0);
+            stockColor = sf::Color(0, 0, 0, 0); //transparent
         }
         else {
             switch (setStock) {
             case 0:
-                stockColor = sf::Color(184, 115, 51, 255);
+                stockColor = sf::Color(184, 115, 51, 255); //copper
                 break;
             case 1:
-                stockColor = sf::Color(128, 128, 128, 255);
+                stockColor = sf::Color(128, 128, 128, 255); //grey
                 break;
             case 2:
-                stockColor = sf::Color(66, 133, 244, 255);
+                stockColor = sf::Color(66, 133, 244, 255); //blue
                 break;
             case 3:
-                stockColor = sf::Color(66, 133, 244, 255);
+                stockColor = sf::Color::Red; //light red
                 break;
             case 4:
-                stockColor = sf::Color(35, 35, 142, 255);
+                stockColor = sf::Color(35, 35, 142, 255); //navy blue
                 break;
             case 5:
-                stockColor = sf::Color(255, 215, 0, 255);
+                stockColor = sf::Color(255, 215, 0, 255); //gold
                 break;
             case 6:
-                stockColor = sf::Color(118, 185, 0, 255);
+                stockColor = sf::Color(118, 185, 0, 255); //green
                 break;
             case 7:
-                stockColor = sf::Color(0, 4, 13, 255);
+                stockColor = sf::Color(0, 4, 13, 255); //black
                 break;
             default:
                 cout << "something has gone wrong in colors" << endl;
@@ -201,8 +205,6 @@ int main()
     S_StockOption_Gold.setPosition(1225, 300);
     S_StockOption_Nvid.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
-
-    stockLine stockLine1(0, 500);
     
     sf::Text moneyTitleText;
     sf::Text cashmoneyTitleText;
@@ -263,7 +265,7 @@ int main()
 
 
     for (int i = 0; i < 8; i++) {
-        stocksArray[i] = stockLine(i, rand() % 600);
+        stocksArray[i] = stockLine(i, i * 60 + 100);
         stocksArray[i].updateColor(1);
     }
 
@@ -343,7 +345,6 @@ int main()
         window.draw(S_StockOption_Gold);
         window.draw(S_StockOption_Nvid);
         window.draw(S_StockOption_Oil);
-        window.draw(stockLine1.lines);
         
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
