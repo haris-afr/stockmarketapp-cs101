@@ -70,19 +70,19 @@ public:
     int setStock = 0;
     sf::VertexArray lines;
     
-    stockLine(int stock, int givenYPos) : lines(sf::TrianglesStrip, 14) {
+    stockLine(int stock, int givenYPos) : lines(sf::TrianglesStrip, 12) {
         setStock = stock;
-        for (int i = 1; i < 15; i++) {
-            lines[i - 1].color = sf::Color::Red;
+        for (int i = 0; i < 12; i++) {
+            lines[i].color = sf::Color::Red;
 
-            if (i % 2 == 0) {
-                lines[i - 1].position.y = yPos;
+            if ((i + 1) % 2 == 0) {
+                lines[i].position.y = givenYPos;
             }
             else {
-                lines[i - 1].position.y = yPos + 20;
+                lines[i].position.y = givenYPos + 8;
             }
 
-            lines[i - 1].position.x = 100 + ( (i/2) * 100);
+            lines[i].position.x = 35 + ( (i/2) * 145);
         }
     }
     
@@ -152,7 +152,7 @@ int main()
     S_StockOption_Nvid.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
 
-    stockLine stockLine1(0, 200);
+    stockLine stockLine1(0, 500);
     
     sf::Text moneyTitleText;
     sf::Text cashmoneyTitleText;
