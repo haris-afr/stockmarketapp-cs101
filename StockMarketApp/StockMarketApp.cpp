@@ -3,48 +3,6 @@
 
 using namespace std;
 
-class visEye {
-public:
-    sf::Texture T_EyeClosed;
-    sf::Texture T_EyeOpen;
-    bool CurrentTexture;
-    sf::Sprite S_CurrentSprite;
-    int xPos, yPos;
-
-    void initialize(int givenXPos, int givenYPos) {
-        T_EyeClosed.loadFromFile("assets/eye-close.png");
-        T_EyeOpen.loadFromFile("assets/eye-open.png");
-        S_CurrentSprite.setTexture(T_EyeClosed);
-        CurrentTexture = 0;
-        xPos = givenXPos;
-        yPos = givenYPos;
-        S_CurrentSprite.setPosition(xPos, yPos);
-    }
-
-    void setState(bool state) {
-        if (state == 0) {
-            S_CurrentSprite.setTexture(T_EyeClosed);
-            CurrentTexture = 0;
-        }
-        else {
-            S_CurrentSprite.setTexture(T_EyeOpen);
-            CurrentTexture = 1;
-        }
-    }
-
-    void flip() {
-        if (CurrentTexture == 0) {
-            S_CurrentSprite.setTexture(T_EyeOpen);
-            CurrentTexture = 1;
-        }
-        else {
-            S_CurrentSprite.setTexture(T_EyeClosed);
-            CurrentTexture = 0;
-        }
-    }
-
-};
-
 class buySell {
 public:
     sf::Texture Texture;
@@ -82,7 +40,8 @@ public:
         for (int i = 0; i < 6; i++) {
             stocksArray[i] = 0;
         }
-        shiftOldStocks(givenYPos);
+        updateStocks(givenYPos);
+        updateColor(0);
         displayStocks();
     }
 
@@ -93,11 +52,12 @@ public:
         }
     }
 
-    void shiftOldStocks(int latestYPos) {
+    void updateStocks(int latestYPos) {
         for (int i = 0; i < 5; i++) {
             stocksArray[i] = stocksArray[i + 1];
         }
         stocksArray[5] = latestYPos;
+        displayStocks();
     }
     
     void updateColor(bool vis) {
@@ -106,39 +66,84 @@ public:
         }
         else {
             switch (setStock) {
-            case 0:
+            case 1:
                 stockColor = sf::Color(184, 115, 51, 255); //copper
                 break;
-            case 1:
+            case 0:
                 stockColor = sf::Color(128, 128, 128, 255); //grey
                 break;
-            case 2:
+            case 3:
                 stockColor = sf::Color(66, 133, 244, 255); //blue
                 break;
-            case 3:
+            case 2:
                 stockColor = sf::Color::Red; //light red
                 break;
-            case 4:
+            case 5:
                 stockColor = sf::Color(35, 35, 142, 255); //navy blue
                 break;
-            case 5:
+            case 4:
                 stockColor = sf::Color(255, 215, 0, 255); //gold
                 break;
-            case 6:
+            case 7:
                 stockColor = sf::Color(118, 185, 0, 255); //green
                 break;
-            case 7:
+            case 6:
                 stockColor = sf::Color(0, 4, 13, 255); //black
                 break;
             default:
                 cout << "something has gone wrong in colors" << endl;
             }
 
-            for (int i = 0; i < 12; i++) {
-                lines[i].color = stockColor;
-             }
+
+        }
+        for (int i = 0; i < 12; i++) {
+            lines[i].color = stockColor;
         }
     }
+};
+
+class visEye {
+public:
+    sf::Texture T_EyeClosed;
+    sf::Texture T_EyeOpen;
+    bool CurrentTexture;
+    sf::Sprite S_CurrentSprite;
+    int xPos, yPos;
+
+    void initialize(int givenXPos, int givenYPos) {
+        T_EyeClosed.loadFromFile("assets/eye-close.png");
+        T_EyeOpen.loadFromFile("assets/eye-open.png");
+        S_CurrentSprite.setTexture(T_EyeClosed);
+        CurrentTexture = 0;
+        xPos = givenXPos;
+        yPos = givenYPos;
+        S_CurrentSprite.setPosition(xPos, yPos);
+    }
+
+    void setState(bool state) {
+        if (state == 0) {
+            S_CurrentSprite.setTexture(T_EyeClosed);
+            CurrentTexture = 0;
+        }
+        else {
+            S_CurrentSprite.setTexture(T_EyeOpen);
+            CurrentTexture = 1;
+        }
+    }
+
+    void flip(stockLine& stocktoUpdate) {
+        if (CurrentTexture == 0) {
+            S_CurrentSprite.setTexture(T_EyeOpen);
+            CurrentTexture = 1;
+            stocktoUpdate.updateColor(1);
+        }
+        else {
+            S_CurrentSprite.setTexture(T_EyeClosed);
+            CurrentTexture = 0;
+            stocktoUpdate.updateColor(0);
+        }
+    }
+
 };
 
 int main()
@@ -177,6 +182,12 @@ int main()
     sf::Sprite chartSprite;
     chartTexture.loadFromFile("assets/chart-blank.png");
     chartSprite.setTexture(chartTexture);
+
+    sf::Texture T_NextDay;
+    sf::Sprite S_NextDay;
+    T_NextDay.loadFromFile("assets/next.png");
+    S_NextDay.setTexture(T_NextDay);
+    S_NextDay.setPosition(1050, 15);
     
     
     T_StockOption_Coin.loadFromFile("assets/coin.png");
@@ -266,8 +277,9 @@ int main()
 
     for (int i = 0; i < 8; i++) {
         stocksArray[i] = stockLine(i, i * 60 + 100);
-        stocksArray[i].updateColor(1);
     }
+
+
 
     for (int i = 0; i < 8; i++) {
         int xPos = (800 + 375 * ((i + 1) % 2));
@@ -306,13 +318,22 @@ int main()
             case sf::Event::MouseButtonPressed:{
                 int mouseXPos = sf::Mouse::getPosition(window).x;
                 int mouseYPos = sf::Mouse::getPosition(window).y;
+
+                //hide stocks check
                 for (int i = 0; i < 8; i++) {
                     bool xCheck = mouseXPos >= visEyeArray[i].xPos && mouseXPos <= visEyeArray[i].xPos + 50;
                     bool yCheck = mouseYPos >= visEyeArray[i].yPos && mouseYPos <= visEyeArray[i].yPos + 50;
                     if (xCheck && yCheck && !lockClick) {
-                        visEyeArray[i].flip();
+                        visEyeArray[i].flip(stocksArray[i]);
                         lockClick = true;
                         break;
+                    }
+                }
+                //next day check
+                if (mouseXPos >= 1050 && mouseXPos <= 1150 && mouseYPos >= 15 && mouseYPos <= 115 && !lockClick) {
+                    lockClick = true;
+                    for (int i = 0; i < 8; i++) {
+                        stocksArray[i].updateStocks(rand() % 500);
                     }
                 }
                 break;
@@ -345,13 +366,18 @@ int main()
         window.draw(S_StockOption_Gold);
         window.draw(S_StockOption_Nvid);
         window.draw(S_StockOption_Oil);
+        window.draw(S_NextDay);
         
+        
+
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
             window.draw(iconTextArray[i]);
             window.draw(buySellArray[i].Sprite);
             window.draw(stocksArray[i].lines);
         }
+
+
         
 
         window.display();
