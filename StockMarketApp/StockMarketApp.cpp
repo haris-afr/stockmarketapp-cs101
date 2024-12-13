@@ -65,19 +65,27 @@ public:
 
 class stockLine {
 public:
-    int xPos, yPos;
-    int setStock;
+    int xPos = 0;
+    int yPos = 0;
+    int setStock = 0;
+    sf::VertexArray lines;
     
-    stockLine() {
-        sf::VertexArray lines(sf::LineStrip, 7);
-    }
-
-    void initialize(int stock, int givenXPos, int givenYPos) {
+    stockLine(int stock, int givenYPos) : lines(sf::TrianglesStrip, 14) {
         setStock = stock;
-        xPos = givenXPos;
-        yPos = givenYPos;
-    }
+        for (int i = 1; i < 15; i++) {
+            lines[i - 1].color = sf::Color::Red;
 
+            if (i % 2 == 0) {
+                lines[i - 1].position.y = yPos;
+            }
+            else {
+                lines[i - 1].position.y = yPos + 20;
+            }
+
+            lines[i - 1].position.x = 100 + ( (i/2) * 100);
+        }
+    }
+    
 };
 
 int main()
@@ -143,6 +151,8 @@ int main()
     S_StockOption_Gold.setPosition(1225, 300);
     S_StockOption_Nvid.setPosition(850, 400);
     S_StockOption_Oil.setPosition(1225, 400);
+
+    stockLine stockLine1(0, 200);
     
     sf::Text moneyTitleText;
     sf::Text cashmoneyTitleText;
@@ -276,6 +286,7 @@ int main()
         window.draw(S_StockOption_Gold);
         window.draw(S_StockOption_Nvid);
         window.draw(S_StockOption_Oil);
+        window.draw(stockLine1.lines);
         
         for (int i = 0; i < 8; i++) {
             window.draw(visEyeArray[i].S_CurrentSprite);
@@ -283,6 +294,7 @@ int main()
             window.draw(buySellArray[i].Sprite);
         }
         
+
         window.display();
     }
     return 0;
