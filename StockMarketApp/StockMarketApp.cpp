@@ -17,6 +17,7 @@ public:
     int stocksOwned = 0;
 
     sf::Text stocksOwnedtext;
+    sf::Text stockPricetext;
 
     void initialize(int stock, int givenXPos, int givenYPos) {
         Texture.loadFromFile("assets/buy-sell.png");
@@ -33,6 +34,12 @@ public:
         stocksOwnedtext.setFillColor(sf::Color::Black);
         stocksOwnedtext.setCharacterSize(24);
         stocksOwnedtext.setPosition(xPos + 180, yPos + 30);
+
+        stockPricetext.setString("0");
+        stockPricetext.setFont(font);
+        stockPricetext.setFillColor(sf::Color::Black);
+        stockPricetext.setCharacterSize(24);
+        stockPricetext.setPosition(xPos + 180, yPos - 30);
     }
 
     void Buy() {
@@ -55,6 +62,8 @@ public:
 
     int updateStockValue(float multiplier) {
         stockVal *= multiplier;
+        int displayValue = stockVal;
+        stockPricetext.setString(to_string(displayValue));
         return stockVal;
     }
 
@@ -331,7 +340,7 @@ int main()
 
     for (int j = 0; j < 6; j++) {
         for (int i = 0; i < 8; i++) {
-            stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue((rand() % 100) / 50.0));
+            stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue((rand() % 100) / 50.0 + 0.4));
         }
     }
 
@@ -438,7 +447,9 @@ int main()
             window.draw(buySellArray[i].Sprite);
             window.draw(stocksArray[i].lines);
             window.draw(buySellArray[i].stocksOwnedtext);
+            window.draw(buySellArray[i].stockPricetext);
         }
+
 
 
         
