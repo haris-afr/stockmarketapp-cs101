@@ -3,12 +3,20 @@
 
 using namespace std;
 
+int cashMoney = 10000;
+sf::Font font;
+
+
 class buySell {
 public:
     sf::Texture Texture;
     sf::Sprite Sprite;
     int xPos, yPos;
     int setStock;
+    float stockVal = 100;
+    int stocksOwned = 0;
+
+    sf::Text stocksOwnedtext;
 
     void initialize(int stock, int givenXPos, int givenYPos) {
         Texture.loadFromFile("assets/buy-sell.png");
@@ -18,7 +26,31 @@ public:
         Sprite.setTexture(Texture);
         Sprite.setPosition(xPos, yPos);
 
+        stocksOwnedtext.setString("0");
+        stocksOwnedtext.setFont(font);
+        stocksOwnedtext.setFillColor(sf::Color::Black);
+        stocksOwnedtext.setCharacterSize(24);
+        stocksOwnedtext.setPosition(xPos + 180, yPos + 30);
     }
+
+    void Buy() {
+        if (cashMoney > stockVal) {
+            stocksOwned += 1;
+            cashMoney -= stockVal;
+            stocksOwnedtext.setString(to_string(stocksOwned));
+
+        }
+    }
+
+    void Sell() {
+        if (stocksOwned > 0) {
+            stocksOwned -= 1;
+            cashMoney += stockVal;
+            stocksOwnedtext.setString(to_string(stocksOwned));
+
+        }
+    }
+
 };
 
 class stockLine {
@@ -152,11 +184,10 @@ int main()
     //creates a window and titles it 
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Stock Market App", sf::Style::Close | sf::Style::Titlebar);
     
-    sf::Font font;
     font.loadFromFile("assets/Swansea.ttf");
 
-    int cashMoney = 10000;
     int stockMoney = 0;
+
 
     sf::Texture T_StockOption_Coin;
     sf::Texture T_StockOption_Tech1;
@@ -335,7 +366,27 @@ int main()
                     for (int i = 0; i < 8; i++) {
                         stocksArray[i].updateStocks(rand() % 500);
                     }
+                    break;
                 }
+
+                //buy and sell check
+                for (int i = 0; i < 8; i++) {
+                    bool xCheckBuy = mouseXPos >= buySellArray[i].xPos + 5 && mouseXPos <= buySellArray[i].xPos + 50;
+                    bool xCheckSell = mouseXPos >= buySellArray[i].xPos + 60 && mouseXPos <= buySellArray[i].xPos + 110;
+                    bool yCheck = mouseYPos >= buySellArray[i].yPos + 25 && mouseYPos <= buySellArray[i].yPos + 55;
+                    if (xCheckBuy && yCheck && !lockClick) {
+                        buySellArray[i].Buy();
+                        lockClick = true;
+                        break;
+                    }
+                    if (xCheckSell && yCheck && !lockClick) {
+                        buySellArray[i].Sell();
+                        lockClick = true;
+                        break;
+                    }
+                }
+
+
                 break;
             }
 
@@ -375,6 +426,7 @@ int main()
             window.draw(iconTextArray[i]);
             window.draw(buySellArray[i].Sprite);
             window.draw(stocksArray[i].lines);
+            window.draw(buySellArray[i].stocksOwnedtext);
         }
 
 
