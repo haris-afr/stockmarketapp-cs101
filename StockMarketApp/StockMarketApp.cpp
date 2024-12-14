@@ -13,7 +13,7 @@ public:
     sf::Sprite Sprite;
     int xPos, yPos;
     int setStock;
-    float stockVal = 100;
+    float stockVal = 690;
     int stocksOwned = 0;
 
     sf::Text stocksOwnedtext;
@@ -25,6 +25,8 @@ public:
         yPos = givenYPos;
         Sprite.setTexture(Texture);
         Sprite.setPosition(xPos, yPos);
+
+        stockVal = 550 - rand() % 100;
 
         stocksOwnedtext.setString("0");
         stocksOwnedtext.setFont(font);
@@ -49,6 +51,11 @@ public:
             stocksOwnedtext.setString(to_string(stocksOwned));
 
         }
+    }
+
+    int updateStockValue(float multiplier) {
+        stockVal *= multiplier;
+        return stockVal;
     }
 
 };
@@ -307,12 +314,6 @@ int main()
 
 
     for (int i = 0; i < 8; i++) {
-        stocksArray[i] = stockLine(i, i * 60 + 100);
-    }
-
-
-
-    for (int i = 0; i < 8; i++) {
         int xPos = (800 + 375 * ((i + 1) % 2));
         int yPos = (100 * ((i + 2) / 2) + 25);
         visEyeArray[i].initialize(xPos, yPos);
@@ -322,6 +323,16 @@ int main()
         int xPos = (950 + 375 * ((i + 1) % 2));
         int yPos = (150 + (100 * ((i) / 2)));
         buySellArray[i].initialize(i, xPos, yPos);
+    }
+
+    for (int i = 0; i < 8; i++) {
+        stocksArray[i] = stockLine(i, buySellArray[i].stockVal);
+    }
+
+    for (int j = 0; j < 6; j++) {
+        for (int i = 0; i < 8; i++) {
+            stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue((rand() % 100) / 50.0));
+        }
     }
 
 
@@ -364,7 +375,7 @@ int main()
                 if (mouseXPos >= 1050 && mouseXPos <= 1150 && mouseYPos >= 15 && mouseYPos <= 115 && !lockClick) {
                     lockClick = true;
                     for (int i = 0; i < 8; i++) {
-                        stocksArray[i].updateStocks(rand() % 500);
+                        stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue( (rand() % 100) / 50.0 ));
                     }
                     break;
                 }
