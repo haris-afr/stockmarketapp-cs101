@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "price change.cpp"
+#include "hamza mohsin.cpp"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
     double stockVal = 100;
     int stocksOwned = 0;
     double stocksOwnedVal = 0;
+    int daysOfExtreme = 0;
 
     sf::Text stocksOwnedtext;
     sf::Text stockPricetext;
@@ -63,19 +65,29 @@ public:
     }
 
     int updateStockValue() {
-        float multiplier = updateprice(0.9, .25);
-        
-        if (stockVal < 10) {
-            multiplier = updateprice(1.2, .3);
+        float multiplier = updateprice(0.9, .15);
+        int extremeDice = rand() % 20;
+        bool extremeUpOrDown = rand() % 2;
+
+        if (extremeDice == 0 && daysOfExtreme == 0) {
+            daysOfExtreme = DaysOfExtreme();
+        }
+
+        if (daysOfExtreme > 1) {
+            multiplier = extremePrice(extremeUpOrDown, daysOfExtreme);
+            daysOfExtreme -= 1;
+        }
+        else if (stockVal < 10) {
+            multiplier = updateprice(1.2, .2);
             stockVal = 10;
         }
         else if (stockVal > 1000) {
 
-            multiplier = updateprice(0.9, .3);
+            multiplier = updateprice(0.9, .2);
             stockVal = 1000;
         }
         else if (stockVal < 300) {
-            multiplier = updateprice(1.1, .3);
+            multiplier = updateprice(1.1, .2);
         }
         
 

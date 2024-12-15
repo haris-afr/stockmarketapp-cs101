@@ -4,7 +4,7 @@ using namespace std;
 
 int DaysOfExtreme(){
 	int days;
-	days = rand() % 7;
+	return days = rand() % 7;
 }
 
 float extremePrice(bool flag, int days){
