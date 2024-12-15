@@ -67,18 +67,29 @@ public:
     }
 
     int updateStockValue() {
-        float multiplier = updateprice(0.9, .15);
-        int extremeDice = rand() % 20;
+        float multiplier = updateprice(1.01, .35);
+        int extremeDice = rand() % 10;
         bool extremeUpOrDown = rand() % 2;
-        
+        if (stockVal < 10) {
+            multiplier = updateprice(1.2, .2);
+            stockVal = 10;
+        }
+
         if (extremeDice == 0 && daysOfExtreme == 0) {
             daysOfExtreme = DaysOfExtreme();
         }
 
-        if (newsStock > 0) {
+        else if (stockVal > 1000) {
+
+            multiplier = updateprice(0.9, .2);
+            stockVal = 1000;
+        }
+
+
+        if (newsStock != 0) {
             switch (newsStock) {
             case 1:
-                extremePrice(0, 5);
+                extremePrice(0, 1);
                 break;
             case 2:
                 multiplier = updateprice(0.7, 0.1);
@@ -87,7 +98,7 @@ public:
                 multiplier = updateprice(1.3, 0.1);
                 break;
             case 4:
-                extremePrice(1, 5);
+                extremePrice(1, 1);
                 break;
             default:
                 break;
@@ -96,15 +107,6 @@ public:
         else if (daysOfExtreme > 1) {
             multiplier = extremePrice(extremeUpOrDown, daysOfExtreme);
             daysOfExtreme -= 1;
-        }
-        else if (stockVal < 10) {
-            multiplier = updateprice(1.2, .2);
-            stockVal = 10;
-        }
-        else if (stockVal > 1000) {
-
-            multiplier = updateprice(0.9, .2);
-            stockVal = 1000;
         }
         else if (stockVal < 300) {
             multiplier = updateprice(1.1, .2);
@@ -374,8 +376,9 @@ int main()
 
     NewsText.setFont(font);
     NewsText.setFillColor(sf::Color::Black);
-    NewsText.setCharacterSize(12);
+    NewsText.setCharacterSize(24);
     NewsText.setPosition(50, 750);
+    NewsText.setLineSpacing(3);
     NewsText.setString("No news today");
 
 
@@ -456,9 +459,9 @@ int main()
                     lockClick = true;
                     stockMoney = 0;
 
-                    int stockoftheday = rand() % 7;
-                    int changeinStock = rand() % 4 + 1;
-                    buySellArray[stockoftheday].newsStock = changeinStock;
+                    int stockoftheday = rand() % 8;
+                    int changeinStock = (rand() % 4) + 1;
+                    
 
                     switch (changeinStock)
                     {
@@ -483,6 +486,7 @@ int main()
                         stockMoney += buySellArray[i].stocksOwnedVal;
                         NewsText.setString(returnNews(changeinStock, stockoftheday));
                     }
+                    buySellArray[stockoftheday].newsStock = changeinStock;
 
 
                     break;

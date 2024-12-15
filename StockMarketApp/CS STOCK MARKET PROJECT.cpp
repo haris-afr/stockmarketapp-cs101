@@ -16,11 +16,11 @@ using namespace std;
 		}
 		
     if(percentage_increase >= 70 && percentage_increase <= 80   ){
-    	return "Binance has been loosing market because of increasing competition /n by other companies with bitget leading the way 38.4%";
+    	return "Binance has been loosing market because of increasing competition \n by other companies with bitget leading the way 38.4%";
     	
 	}
 	if(percentage_increase >= 0 && percentage_increase <= 70 )   {  
-		return "The US securities and Exchange Commission has charged Binance CEO /n for violating securities laws. Hence due to uncertainity among massses it is facing decline";
+		return "The US securities and Exchange Commission has charged Binance CEO \n for violating securities laws. Hence due to uncertainity among massses it is facing decline";
 	}
 	break;    
 	
@@ -49,20 +49,20 @@ using namespace std;
     case 2:   //GOOGLE
 	if(percentage_increase >= 80 && percentage_increase <= 100 ) {
 	    
-		return "Google's revenue jumped 15% year-over-year,/n driven by strong growth in its cloud computing and advertising businesses./nThe company's earnings per share (EPS) also exceeded expectations,/n coming in at $15.20 compared to the estimated $13.50.";
+		return "Google's revenue jumped 15% year-over-year,\n driven by strong growth in its cloud computing and advertising businesses.\nThe company's earnings per share (EPS) also exceeded expectations,\n coming in at $15.20 compared to the estimated $13.50.";
 	} 
 	
 	
-	if(percentage_increase >= 100 && percentage_increase <= 150 )  {  return " Investors were impressed by Google's advancements in artificial intelligence./n The company announced several new AI powered products and services.";
+	if(percentage_increase >= 100 && percentage_increase <= 150 )  {  return " Investors were impressed by Google's advancements in artificial intelligence.\n The company announced several new AI powered products and services.";
 	}
 	
 	
 	if (percentage_increase >= 70 && percentage_increase <= 85) {
-		return "Google's advertising revenue has been slowing down in recent quarters, which has also contributed to the decline in the company's shares./n As the digital advertising market becomes increasingly competitive, ";
+		return "Google's advertising revenue has been slowing down in recent quarters, which has also contributed to the decline in the company's shares.\n As the digital advertising market becomes increasingly competitive, ";
 	}
 	
 	if (percentage_increase >= 0 && percentage_increase <= 70) {
-		return "Google Shares Decline Amid Antitrust Concerns and Advertising Slowdown Alphabet Inc., the parent company of Google,/nsaw its shares decline by 5% in early trading on Wednesday./n The decline comes amid growing concerns over antitrust regulations and a slowdown in advertising revenue.";
+		return "Google Shares Decline Amid Antitrust Concerns and Advertising Slowdown Alphabet Inc., the parent company of Google,\nsaw its shares decline by 5% in early trading on Wednesday.\n The decline comes amid growing concerns over antitrust regulations and a slowdown in advertising revenue.";
 	  }
 	   break;
 	  
@@ -117,7 +117,7 @@ using namespace std;
 	 }
 	  break;
 	
-	case 6:  //NVIDIA
+	case 6:  //nVIDIA
 	if(percentage_increase >= 80 && percentage_increase <= 100 ){
 		return "NVIDIA stocks experiencing a big rise due to 15 billion dollar deal signed by \n Mr. Sam Manekshaw CEO of Edilite Tech. Consequently, a surge in stocks is recorded.  ";
 	}
@@ -125,7 +125,7 @@ using namespace std;
 		return "On Wednesday morning as bells rang at NASDAQ, NVIDIA shares skyrocketed \ndue to abig shift in Tech industry with Elon Musk accquired 50% stakes of NVIDIA. ";
 	}
     if(percentage_increase >= 70 && percentage_increase <= 85 )     { 
-    return "A decline in NVIDIA's shares is recorded due to third quater earnings report,\n although beating analyst expectations, showed a decline in the company's profit margins /n hence strucked a blow on the stock prices";
+    return "A decline in NVIDIA's shares is recorded due to third quater earnings report,\n although beating analyst expectations, showed a decline in the company's profit margins \n hence strucked a blow on the stock prices";
     }
     if(percentage_increase >= 0 && percentage_increase <= 70 ) {   
 	return "A massive dip in NVIDIA's stocks is beacause of $50 Billion in shares\n although a positive move, may also have contributed to the decline as investors\n may be concrerned about company's ability.";
