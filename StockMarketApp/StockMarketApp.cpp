@@ -460,8 +460,12 @@ int main()
                     stockMoney = 0;
 
                     int stockoftheday = rand() % 8;
-                    int changeinStock = (rand() % 4) + 1;
-                    
+                    int changeinStock = (rand() % 4) + 1;;
+
+                    for (int i = 0; i < 8; i++) {
+                        stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
+                     }
+                    buySellArray[stockoftheday].newsStock = changeinStock;
 
                     switch (changeinStock)
                     {
@@ -482,11 +486,10 @@ int main()
                     }
 
                     for (int i = 0; i < 8; i++) {
-                        stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
                         stockMoney += buySellArray[i].stocksOwnedVal;
                         NewsText.setString(returnNews(changeinStock, stockoftheday));
                     }
-                    buySellArray[stockoftheday].newsStock = changeinStock;
+                    
 
 
                     break;

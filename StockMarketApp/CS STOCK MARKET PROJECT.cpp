@@ -3,7 +3,7 @@ using namespace std;
  string returnNews (int percentage_increase,int stock_index)               {
 
 	switch (stock_index){
-	case 0 : //BINANCE STOCK
+	case 1 : //BINANCE STOCK
 	if( percentage_increase >= 80 && percentage_increase <= 100 ){
 	return  "Increased on chain activity with transaction volumes reaching new heights.\nGrowing confidence in eco system increased trading volume."
 "Increased on chain activity with transaction volumes reaching new heights.\n";
@@ -26,7 +26,7 @@ using namespace std;
 	
 	
 	
-    case 1:  //APPLE
+    case 0:  //APPLE
     if(percentage_increase >= 80 && percentage_increase <= 100 )   { 
 		return "Apple stocks are rising due to several positive factors. The company's strong quarterly earnings report,\n which beat analyst expectations, has contributed to the surge.\n Apple's revenue jumped 15% year-over-year, driven by strong growth in its cloud computing and advertising businesses.";
 
@@ -46,7 +46,7 @@ using namespace std;
 	   }  
 	     break;
 	   
-    case 2:   //GOOGLE
+    case 3:   //GOOGLE
 	if(percentage_increase >= 80 && percentage_increase <= 100 ) {
 	    
 		return "Google's revenue jumped 15% year-over-year,\n driven by strong growth in its cloud computing and advertising businesses.\nThe company's earnings per share (EPS) also exceeded expectations,\n coming in at $15.20 compared to the estimated $13.50.";
@@ -66,7 +66,7 @@ using namespace std;
 	  }
 	   break;
 	  
-	  case 3:  //UHC
+	  case 2:  //UHC
 		  if (percentage_increase >= 80 && percentage_increase <= 100) {
 			  return "Due to big changes in board of directors by new CEO; Mr Harvey ready to steer UHC out of deep waters\n has created a general perception among masses to buy its stocks on large scale. ";
 	  }
@@ -83,7 +83,7 @@ using namespace std;
 		  return "Due to regime change in US there is a overall sentiment in market of change in policy.\nHence gravely affecting UHC's revenues therefore investors are squaring off. ";
 	  }
 	    break;
-	  case 4:  //LOCKHEED MARTIN
+	  case 5:  //LOCKHEED MARTIN
 	  if(percentage_increase >= 80 && percentage_increase <= 100 ){ 
 		  return "There is a surge in LHM stocks as Lockheed Martin wins\na $ 10 billion contract to supply advanced fighter jets to the U.S. Department of Defense.\n Moreover tension on Eastern Europe has increased NATO spending";
 
@@ -102,7 +102,7 @@ using namespace std;
 		 return "A sudden dip in the  Peace negotiations in the Middle East lead to reduced demand for military equipment,\n affecting Lockheed Martin's outlook.\nA whistleblower accuses Lockheed Martin of contract violations, triggering an investigation by federal authorities.";
 	 }   break;
 	 
-	 case 5:   //NEWMONT GOLD
+	 case 4:   //NEWMONT GOLD
 	 if(percentage_increase >= 80 && percentage_increase <= 100 )  {
 	 	return "A surge in stocks of NEWMONT GOLD is a consequence of hefty investment by Warren Buffet. ";
 	 }
@@ -117,7 +117,7 @@ using namespace std;
 	 }
 	  break;
 	
-	case 6:  //nVIDIA
+	case 7:  //nVIDIA
 	if(percentage_increase >= 80 && percentage_increase <= 100 ){
 		return "NVIDIA stocks experiencing a big rise due to 15 billion dollar deal signed by \n Mr. Sam Manekshaw CEO of Edilite Tech. Consequently, a surge in stocks is recorded.  ";
 	}
@@ -132,7 +132,7 @@ using namespace std;
 	}   break;
 	
 	
-	case 7:   //SHELL OIL
+	case 6:   //SHELL OIL
 	if(percentage_increase >= 80 && percentage_increase <= 100 )  {  
 	return "On last Tuesday, Shell oil experienced a surge due to rising oil prices due to \n war clouds over Gulf, hence spike in stocks is recorded ";
 	}
