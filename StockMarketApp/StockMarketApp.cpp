@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "price change.cpp"
 
 using namespace std;
 
@@ -13,8 +14,9 @@ public:
     sf::Sprite Sprite;
     int xPos, yPos;
     int setStock;
-    float stockVal = 690;
+    double stockVal = 100;
     int stocksOwned = 0;
+    double stocksOwnedVal = 0;
 
     sf::Text stocksOwnedtext;
     sf::Text stockPricetext;
@@ -27,7 +29,7 @@ public:
         Sprite.setTexture(Texture);
         Sprite.setPosition(xPos, yPos);
 
-        stockVal = 550 - rand() % 100;
+        stockVal = 100 - rand() % 100;
 
         stocksOwnedtext.setString("0");
         stocksOwnedtext.setFont(font);
@@ -47,7 +49,7 @@ public:
             stocksOwned += 1;
             cashMoney -= stockVal;
             stocksOwnedtext.setString(to_string(stocksOwned));
-
+            updatedStocksOwnedVal();
         }
     }
 
@@ -56,15 +58,37 @@ public:
             stocksOwned -= 1;
             cashMoney += stockVal;
             stocksOwnedtext.setString(to_string(stocksOwned));
-
+            updatedStocksOwnedVal();
         }
     }
 
-    int updateStockValue(float multiplier) {
+    int updateStockValue() {
+        float multiplier = updateprice(0.9, .25);
+        
+        if (stockVal < 10) {
+            multiplier = updateprice(1.2, .3);
+            stockVal = 10;
+        }
+        else if (stockVal > 1000) {
+
+            multiplier = updateprice(0.9, .3);
+            stockVal = 1000;
+        }
+        else if (stockVal < 300) {
+            multiplier = updateprice(1.1, .3);
+        }
+        
+
         stockVal *= multiplier;
+        updatedStocksOwnedVal();
+
         int displayValue = stockVal;
         stockPricetext.setString(to_string(displayValue));
         return stockVal;
+    }
+
+    void updatedStocksOwnedVal() {
+        stocksOwnedVal = stockVal * stocksOwned;
     }
 
 };
@@ -308,6 +332,20 @@ int main()
     iconTextArray[6].setString("Shell Oil");
     iconTextArray[7].setString("Nvidea");
 
+    sf::Text NewsTitleText;
+    sf::Text NewsText;
+    NewsTitleText.setFont(font);
+    NewsTitleText.setFillColor(sf::Color::Black);
+    NewsTitleText.setCharacterSize(48);
+    NewsTitleText.setPosition(50, 600);
+    NewsTitleText.setString("Today's News");
+
+    NewsText.setFont(font);
+    NewsText.setFillColor(sf::Color::Black);
+    NewsText.setCharacterSize(48);
+    NewsText.setPosition(50, 650);
+
+
     for (int i = 0; i < 8; i++) {
         int xPos = (950 + 375 * ((i + 1) % 2));
         int yPos = (105 * ((i + 2) / 2) + 25);
@@ -340,10 +378,9 @@ int main()
 
     for (int j = 0; j < 6; j++) {
         for (int i = 0; i < 8; i++) {
-            stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue((rand() % 100) / 50.0 + 0.4));
+            stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
         }
     }
-
 
     while (window.isOpen()) {
 
@@ -383,8 +420,10 @@ int main()
                 //next day check
                 if (mouseXPos >= 1050 && mouseXPos <= 1150 && mouseYPos >= 15 && mouseYPos <= 115 && !lockClick) {
                     lockClick = true;
+                    stockMoney = 0;
                     for (int i = 0; i < 8; i++) {
-                        stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue( (rand() % 100) / 50.0 ));
+                        stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
+                        stockMoney += buySellArray[i].stocksOwnedVal;
                     }
                     break;
                 }
@@ -396,11 +435,15 @@ int main()
                     bool yCheck = mouseYPos >= buySellArray[i].yPos + 25 && mouseYPos <= buySellArray[i].yPos + 55;
                     if (xCheckBuy && yCheck && !lockClick) {
                         buySellArray[i].Buy();
+                        stockMoney += buySellArray[i].stockVal;
                         lockClick = true;
                         break;
                     }
                     if (xCheckSell && yCheck && !lockClick) {
-                        buySellArray[i].Sell();
+                        if (buySellArray[i].stocksOwned > 0) {
+                            stockMoney -= buySellArray[i].stockVal;
+                            buySellArray[i].Sell();
+                        }
                         lockClick = true;
                         break;
                     }
@@ -438,7 +481,8 @@ int main()
         window.draw(S_StockOption_Nvid);
         window.draw(S_StockOption_Oil);
         window.draw(S_NextDay);
-        
+        window.draw(NewsText);
+        window.draw(NewsTitleText);
         
 
         for (int i = 0; i < 8; i++) {
