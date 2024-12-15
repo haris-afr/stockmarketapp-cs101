@@ -9,7 +9,7 @@ int DaysOfExtreme(){
 
 float extremePrice(bool flag, int days){
     float magnitude;
-    magnitude = rand() % 80 + 80 + days * 10;
+    magnitude = rand() % 80 + 100 + days * 10;
     magnitude /= 100.0;
     if(flag){
     	return magnitude;

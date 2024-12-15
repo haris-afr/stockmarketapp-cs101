@@ -450,15 +450,16 @@ int main()
                     bool yCheck = mouseYPos >= visEyeArray[i].yPos && mouseYPos <= visEyeArray[i].yPos + 50;
                     if (xCheck && yCheck && !lockClick) {
                         visEyeArray[i].flip(stocksArray[i]);
-                        lockClick = true;
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                            lockClick = true;
+                        }
                         break;
                     }
                 }
                 //next day check
                 if (mouseXPos >= 1050 && mouseXPos <= 1150 && mouseYPos >= 15 && mouseYPos <= 115 && !lockClick) {
-                    lockClick = true;
                     stockMoney = 0;
-
+                    lockClick = true;
                     int stockoftheday = rand() % 8;
                     int changeinStock = (rand() % 4) + 1;;
 
@@ -501,22 +502,39 @@ int main()
                     bool xCheckSell = mouseXPos >= buySellArray[i].xPos + 60 && mouseXPos <= buySellArray[i].xPos + 110;
                     bool yCheck = mouseYPos >= buySellArray[i].yPos + 25 && mouseYPos <= buySellArray[i].yPos + 55;
                     if (xCheckBuy && yCheck && !lockClick) {
-                        buySellArray[i].Buy();
-                        stockMoney += buySellArray[i].stockVal;
-                        lockClick = true;
+                        if (cashMoney > buySellArray[i].stockVal) {
+                            if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && cashMoney > 10 * buySellArray[i].stockVal) {
+                                for (int j = 0; j < 10; j++) {
+                                    buySellArray[i].Buy();
+                                    stockMoney += buySellArray[i].stockVal;
+                                }
+                            }
+                            else {
+                                buySellArray[i].Buy();
+                                stockMoney += buySellArray[i].stockVal;
+                            }
+                            lockClick = true;
+                        }
                         break;
                     }
                     if (xCheckSell && yCheck && !lockClick) {
                         if (buySellArray[i].stocksOwned > 0) {
-                            stockMoney -= buySellArray[i].stockVal;
-                            buySellArray[i].Sell();
+                            if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && (buySellArray[i].stocksOwned > 10)) {
+                                for (int j = 0; j < 10; j++) {
+                                    buySellArray[i].Sell();
+                                    stockMoney -= buySellArray[i].stockVal;
+                                }
+                            }
+                            else {
+                                buySellArray[i].Sell();
+                                stockMoney -= buySellArray[i].stockVal;
+                            }
                         }
+
                         lockClick = true;
                         break;
                     }
                 }
-
-
                 break;
             }
 
