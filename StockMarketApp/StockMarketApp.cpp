@@ -2,6 +2,7 @@
 #include <iostream>
 #include "price change.cpp"
 #include "hamza mohsin.cpp"
+#include "CS STOCK MARKET PROJECT.cpp"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
     int stocksOwned = 0;
     double stocksOwnedVal = 0;
     int daysOfExtreme = 0;
+    int newsStock = 0;
 
     sf::Text stocksOwnedtext;
     sf::Text stockPricetext;
@@ -68,12 +70,30 @@ public:
         float multiplier = updateprice(0.9, .15);
         int extremeDice = rand() % 20;
         bool extremeUpOrDown = rand() % 2;
-
+        
         if (extremeDice == 0 && daysOfExtreme == 0) {
             daysOfExtreme = DaysOfExtreme();
         }
 
-        if (daysOfExtreme > 1) {
+        if (newsStock > 0) {
+            switch (newsStock) {
+            case 1:
+                extremePrice(0, 5);
+                break;
+            case 2:
+                multiplier = updateprice(0.7, 0.1);
+                break;
+            case 3:
+                multiplier = updateprice(1.3, 0.1);
+                break;
+            case 4:
+                extremePrice(1, 5);
+                break;
+            default:
+                break;
+            }
+        }
+        else if (daysOfExtreme > 1) {
             multiplier = extremePrice(extremeUpOrDown, daysOfExtreme);
             daysOfExtreme -= 1;
         }
@@ -354,9 +374,9 @@ int main()
 
     NewsText.setFont(font);
     NewsText.setFillColor(sf::Color::Black);
-    NewsText.setCharacterSize(48);
+    NewsText.setCharacterSize(12);
     NewsText.setPosition(50, 750);
-    NewsText.setString("a");
+    NewsText.setString("No news today");
 
 
     for (int i = 0; i < 8; i++) {
@@ -394,6 +414,7 @@ int main()
             stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
         }
     }
+
 
     while (window.isOpen()) {
 
@@ -434,11 +455,36 @@ int main()
                 if (mouseXPos >= 1050 && mouseXPos <= 1150 && mouseYPos >= 15 && mouseYPos <= 115 && !lockClick) {
                     lockClick = true;
                     stockMoney = 0;
+
+                    int stockoftheday = rand() % 7;
+                    int changeinStock = rand() % 4 + 1;
+                    buySellArray[stockoftheday].newsStock = changeinStock;
+
+                    switch (changeinStock)
+                    {
+                    case 1:
+                        changeinStock = 20;
+                        break;
+                    case 2:
+                        changeinStock = 90;
+                        break;
+                    case 3:
+                        changeinStock = 110;
+                        break;
+                    case 4:
+                        changeinStock = 150;
+                        break;
+                    default:
+                        break;
+                    }
+
                     for (int i = 0; i < 8; i++) {
                         stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
                         stockMoney += buySellArray[i].stocksOwnedVal;
-                        NewsText.setString("a");
+                        NewsText.setString(returnNews(changeinStock, stockoftheday));
                     }
+
+
                     break;
                 }
 
