@@ -343,7 +343,8 @@ int main()
     NewsText.setFont(font);
     NewsText.setFillColor(sf::Color::Black);
     NewsText.setCharacterSize(48);
-    NewsText.setPosition(50, 650);
+    NewsText.setPosition(50, 750);
+    NewsText.setString("a");
 
 
     for (int i = 0; i < 8; i++) {
@@ -424,6 +425,7 @@ int main()
                     for (int i = 0; i < 8; i++) {
                         stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
                         stockMoney += buySellArray[i].stocksOwnedVal;
+                        NewsText.setString("a");
                     }
                     break;
                 }
@@ -492,11 +494,7 @@ int main()
             window.draw(stocksArray[i].lines);
             window.draw(buySellArray[i].stocksOwnedtext);
             window.draw(buySellArray[i].stockPricetext);
-        }
-
-
-
-        
+        }    
 
         window.display();
     }
