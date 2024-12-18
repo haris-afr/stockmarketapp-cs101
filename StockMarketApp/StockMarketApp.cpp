@@ -67,26 +67,34 @@ public:
 
     int updateStockValue() {
         float multiplier = updateprice(1.01, .35);
-        int extremeDice = rand() % 10;
+        int extremeDice = rand() % 20;
         bool extremeUpOrDown = 0;
         if (stockVal < 10) {
             multiplier = updateprice(1.2, .2);
             stockVal = 10;
         }
 
-        if (extremeDice == 0 && daysOfExtreme == 0) {
+        else if (extremeDice == 0 && daysOfExtreme == 0) {
             daysOfExtreme = DaysOfExtreme();
             extremeUpOrDown = rand() % 2;
         }
 
-        else if (stockVal > 1000) {
-
-            multiplier = updateprice(0.9, .2);
-            stockVal = 1000;
+        else if (daysOfExtreme > 1) {
+            multiplier = extremePrice(extremeUpOrDown, daysOfExtreme);
+            daysOfExtreme -= 1;
+        }
+        else if (stockVal < 300) {
+            multiplier = updateprice(1.1, .2);
+        }
+        
+        if (stockVal > 550) {
+            daysOfExtreme = 0;
+            multiplier = updateprice(0.8, .2);
+            stockVal = 550;
         }
 
-
         if (newsStock != 0) {
+            daysOfExtreme = 0;
             switch (newsStock) {
             case 1:
                 extremePrice(0, 1);
@@ -104,14 +112,6 @@ public:
                 break;
             }
         }
-        else if (daysOfExtreme > 1) {
-            multiplier = extremePrice(extremeUpOrDown, daysOfExtreme);
-            daysOfExtreme -= 1;
-        }
-        else if (stockVal < 300) {
-            multiplier = updateprice(1.1, .2);
-        }
-        
 
         stockVal *= multiplier;
         updatedStocksOwnedVal();
