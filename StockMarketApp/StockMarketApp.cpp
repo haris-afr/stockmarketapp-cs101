@@ -1,12 +1,11 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include "price change.cpp"
-#include "hamza mohsin.cpp"
-#include "CS STOCK MARKET PROJECT.cpp"
+#include <SFML/Graphics.hpp> //for graphics
+#include "price change.cpp" //for normal price change: Usman
+#include "hamza mohsin.cpp" //for extreme price change: Ali Ahsan
+#include "CS STOCK MARKET PROJECT.cpp" //for news:: Daniyal
 
 using namespace std;
 
-int cashMoney = 10000;
+int cashMoney = 10000; //creation of a global variable to store money
 sf::Font font;
 
 
