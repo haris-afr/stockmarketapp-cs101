@@ -68,7 +68,7 @@ public:
     int updateStockValue() {
         float multiplier = updateprice(1.01, .35);
         int extremeDice = rand() % 10;
-        bool extremeUpOrDown = rand() % 2;
+        bool extremeUpOrDown = 0;
         if (stockVal < 10) {
             multiplier = updateprice(1.2, .2);
             stockVal = 10;
@@ -76,6 +76,7 @@ public:
 
         if (extremeDice == 0 && daysOfExtreme == 0) {
             daysOfExtreme = DaysOfExtreme();
+            extremeUpOrDown = rand() % 2;
         }
 
         else if (stockVal > 1000) {
