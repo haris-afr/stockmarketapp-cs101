@@ -19,7 +19,7 @@ public:
     int stocksOwned = 0;
     double stocksOwnedVal = 0;
     int daysOfExtreme = 0;
-    int newsStock = 0;
+    int newsStockChangeInValue = 0;
 
     sf::Text stocksOwnedtext;
     sf::Text stockPricetext;
@@ -93,9 +93,9 @@ public:
             stockVal = 550;
         }
 
-        if (newsStock != 0) {
+        if (newsStockChangeInValue != 0) {
             daysOfExtreme = 0;
-            switch (newsStock) {
+            switch (newsStockChangeInValue) {
             case 1:
                 extremePrice(0, 1);
                 break;
@@ -466,7 +466,7 @@ int main()
                     for (int i = 0; i < 8; i++) {
                         stocksArray[i].updateStocks(550 - buySellArray[i].updateStockValue());
                      }
-                    buySellArray[stockoftheday].newsStock = changeinStock;
+                    buySellArray[stockoftheday].newsStockChangeInValue = changeinStock;
 
                     switch (changeinStock)
                     {
