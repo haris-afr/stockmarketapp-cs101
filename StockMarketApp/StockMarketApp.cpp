@@ -505,8 +505,10 @@ int main()
                         if (cashMoney > buySellArray[i].stockVal) {
                             if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && cashMoney > 10 * buySellArray[i].stockVal) {
                                 for (int j = 0; j < 10; j++) {
+                                    while (cashMoney > 100){
                                     buySellArray[i].Buy();
                                     stockMoney += buySellArray[i].stockVal;
+                                    }
                                 }
                             }
                             else {
@@ -521,8 +523,10 @@ int main()
                         if (buySellArray[i].stocksOwned > 0) {
                             if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && (buySellArray[i].stocksOwned > 10)) {
                                 for (int j = 0; j < 10; j++) {
-                                    buySellArray[i].Sell();
-                                    stockMoney -= buySellArray[i].stockVal;
+                                    while (cashMoney > 100) {
+                                        buySellArray[i].Sell();
+                                        stockMoney -= buySellArray[i].stockVal;
+                                    }
                                 }
                             }
                             else {
