@@ -1,5 +1,5 @@
 # stockmarketapp-cs101
-Stock market app by Haris Afridi, Ahsan Ali Shaikh, Daniyal Ali, Usman Musawar for CS101 SE.
+<h2>Stock market app by Haris Afridi, Ahsan Ali Shaikh, Daniyal Ali, Usman Musawar for CS101 SE.</h2>
 
 This project uses the C++ & the SFML 2.6.2 library for C++. This project was made in Visual Studio and Dev C++
 
@@ -12,7 +12,7 @@ Code breakdown:
 </ul>
 
 How to Run:
-
-i) Clone the repositiory using Visual Studio 2022
-
-ii) Run the project using debug mode
+<ol>
+<li>Clone the repositiory using Visual Studio 2022</li>
+<li>Run the project using debug mode</li>
+</ol>
