@@ -4,10 +4,12 @@ Stock market app by Haris Afridi, Ahsan Ali Shaikh, Daniyal Ali, Usman Musawar f
 This project uses the C++ & the SFML 2.6.2 library for C++. This project was made in Visual Studio and Dev C++
 
 Code breakdown:
-News Algorithm - Daniyal (CS STOCK MARKET PROJECT.cpp)
-Extremes Price Change Code - Usman (Price change.cpp)
-Normals Price Change Code - Ahsan (hamza mohsin.cpp)
-GUI - Haris (StockMarketApp.cpp) 
+<ul>
+<li>News Algorithm - Daniyal (CS STOCK MARKET PROJECT.cpp)</li>
+<li>Extremes Price Change Code - Usman (Price change.cpp)</li>
+<li>Normals Price Change Code - Ahsan (hamza mohsin.cpp)</li>
+<li>GUI - Haris (StockMarketApp.cpp)</li>
+</ul>
 
 How to Run:
 
